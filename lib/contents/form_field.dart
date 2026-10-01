@@ -17,7 +17,7 @@ class FormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 36,
+      height: 40,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(7),
@@ -41,7 +41,7 @@ class FormField extends StatelessWidget {
 
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
-            vertical: 8,
+            vertical: 10,
           ),
 
           border: InputBorder.none,

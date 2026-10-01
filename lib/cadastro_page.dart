@@ -58,7 +58,7 @@ class CadastroPage extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 50),
 
                   // =========================
                   // LOGO
@@ -113,7 +113,7 @@ class CadastroPage extends StatelessWidget {
                     hint: 'Nome Completo',
                     icon: Icons.person_outline,),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   // E-MAIL
                     const Align(
@@ -135,7 +135,7 @@ class CadastroPage extends StatelessWidget {
                     icon: Icons.email_outlined,
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   // =========================
                   // SENHA
@@ -145,7 +145,7 @@ class CadastroPage extends StatelessWidget {
                     child: Text(
                       'Senha',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: AppColors.secondaryText,
                       ),
@@ -156,7 +156,7 @@ class CadastroPage extends StatelessWidget {
 
                   const AppPasswordField(),
 
-                  const SizedBox(height: 13),
+                  const SizedBox(height: 14),
 
                   // =========================
                   // BOTÃO
