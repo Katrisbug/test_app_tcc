@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart' hide FormField;
+import 'package:test_app/crianca/cadastro_saude.dart';
 
 import '../contents/app_colors.dart';
 import '../contents/child_step_indicator.dart';
@@ -200,15 +201,9 @@ class _CadastroDiagnosticoPageState
   Future<void> selecionarArquivo() async {
     try {
       final FilePickerResult? resultado =
-          await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: [
-          'pdf',
-          'jpg',
-          'jpeg',
-          'png',
-        ],
-      );
+        await FilePicker.platform.pickFiles(
+      type: FileType.any,
+    );
 
       if (resultado != null) {
         setState(() {
@@ -438,7 +433,13 @@ class _CadastroDiagnosticoPageState
 
               ContinueButton(
                 onPressed: () {
-                  // Próxima etapa
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const CadastroSaudePage(),
+                        ),
+                      );
                 },
               ),
 
