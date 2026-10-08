@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 
 class ChildStepIndicator extends StatelessWidget {
   final int currentStep;
+  final int totalSteps;
 
   const ChildStepIndicator({
     super.key,
     required this.currentStep,
+    this.totalSteps = 6,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(
-        6,
+        totalSteps,
         (index) {
           final step = index + 1;
 
@@ -23,8 +25,8 @@ class ChildStepIndicator extends StatelessWidget {
                 active: step == currentStep,
               ),
 
-              if (step != 6)
-                _Line(),
+              if (step != totalSteps)
+                const _Line(),
             ],
           );
         },

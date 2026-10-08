@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/reconhecimento_facial/reconhecimento_facial.dart';
 
 import '../contents/app_colors.dart';
 import '../contents/child_step_indicator.dart';
@@ -197,7 +198,13 @@ class CadastroInformacoesPage extends StatelessWidget {
 
               ContinueButton(
                 onPressed: () {
-                  // Finalizar cadastro
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const ReconhecimentoFacialPage(),
+                    ),
+                  );
                 },
               ),
 
