@@ -1,13 +1,110 @@
 import 'package:flutter/material.dart' hide FormField;
 import 'package:test_app/contents/continue_button.dart';
+import 'package:test_app/contents/date_field.dart';
+import 'package:test_app/contents/dropdown.dart';
+import 'package:test_app/contents/foto_select.dart';
 import 'package:test_app/crianca/cadastro_diagnostico.dart';
 
 import '../contents/app_colors.dart';
 import '../contents/child_step_indicator.dart';
 import '../contents/form_field.dart';
 
-class CadastroCriancaPage extends StatelessWidget {
+class CadastroCriancaPage extends StatefulWidget {
   const CadastroCriancaPage({super.key});
+
+  @override
+  State<CadastroCriancaPage> createState() => _CadastroCriancaPageState();
+}
+
+class _CadastroCriancaPageState extends State<CadastroCriancaPage> {
+
+  // =========================
+  // VARIÁVEIS
+  // =========================
+
+  DateTime? dataNascimento;
+  String? sexoSelecionado;
+
+  // =========================
+  // SELECIONAR DATA
+  // =========================
+
+  Future<void> selecionarData() async {
+    final DateTime? data = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (data != null) {
+      setState(() {
+        dataNascimento = data;
+      });
+    }
+  }
+
+  // =========================
+  // SELECIONAR SEXO
+  // =========================
+
+  Future<void> selecionarSexo() async {
+    final String? sexo = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Selecione o sexo',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              ListTile(
+                title: const Text('Feminino'),
+                onTap: () {
+                  Navigator.pop(context, 'Feminino');
+                },
+              ),
+
+              ListTile(
+                title: const Text('Masculino'),
+                onTap: () {
+                  Navigator.pop(context, 'Masculino');
+                },
+              ),
+
+              const SizedBox(height: 10),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (sexo != null) {
+      setState(() {
+        sexoSelecionado = sexo;
+      });
+    }
+  }
+
+  // =========================
+  // TELA
+  // =========================
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +114,12 @@ class CadastroCriancaPage extends StatelessWidget {
       body: Stack(
         children: [
 
-          // =========================
-          // CONTEÚDO
-          // =========================
           SafeArea(
             child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -32,6 +127,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // TOPO
                   // =========================
+
                   Row(
                     children: [
 
@@ -39,6 +135,7 @@ class CadastroCriancaPage extends StatelessWidget {
                         onTap: () {
                           Navigator.pop(context);
                         },
+
                         child: const Icon(
                           Icons.arrow_back,
                           size: 22,
@@ -61,6 +158,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // TÍTULO
                   // =========================
+
                   const Text(
                     'Cadastro da criança',
                     style: TextStyle(
@@ -85,15 +183,13 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // ETAPAS
                   // =========================
+
                   const ChildStepIndicator(
                     currentStep: 1,
                   ),
 
                   const SizedBox(height: 12),
 
-                  // =========================
-                  // TÍTULO DA ETAPA
-                  // =========================
                   const Text(
                     'Informações básicas',
                     style: TextStyle(
@@ -107,67 +203,15 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // FOTO
                   // =========================
-                  Center(
-                    child: Column(
-                      children: [
 
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-
-                            Container(
-                              width: 80,
-                              height: 80,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFD9F2FF),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.person,
-                                size: 45,
-                                color: Color(0xFF5796E8),
-                              ),
-                            ),
-
-                            Positioned(
-                              right: -3,
-                              bottom: -3,
-                              child: Container(
-                                width: 22,
-                                height: 22,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.camera_alt,
-                                  size: 14,
-                                  color: Color(0xFF5796E8),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 7),
-
-                        const Text(
-                          'Adicionar foto',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF438FD8),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const PhotoSelect(),
 
                   const SizedBox(height: 20),
 
                   // =========================
                   // NOME COMPLETO
                   // =========================
+
                   const Text(
                     'Nome completo da criança',
                     style: TextStyle(
@@ -189,6 +233,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // NOME SOCIAL
                   // =========================
+
                   const Text(
                     'Nome social (opcional)',
                     style: TextStyle(
@@ -210,6 +255,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // DATA DE NASCIMENTO
                   // =========================
+
                   const Text(
                     'Data de nascimento',
                     style: TextStyle(
@@ -221,9 +267,10 @@ class CadastroCriancaPage extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  const FormField(
+                  DateField(
                     hint: 'dd/mm/aaaa',
-                    icon: Icons.calendar_today_outlined,
+                    value: dataNascimento,
+                    onTap: selecionarData,
                   ),
 
                   const SizedBox(height: 12),
@@ -231,6 +278,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // SEXO
                   // =========================
+
                   const Text(
                     'Sexo',
                     style: TextStyle(
@@ -242,9 +290,10 @@ class CadastroCriancaPage extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  const FormField(
+                  DropdownField(
                     hint: 'Selecione',
-                    icon: Icons.keyboard_arrow_down,
+                    value: sexoSelecionado,
+                    onTap: selecionarSexo,
                   ),
 
                   const SizedBox(height: 30),
@@ -252,6 +301,7 @@ class CadastroCriancaPage extends StatelessWidget {
                   // =========================
                   // CONTINUAR
                   // =========================
+
                   ContinueButton(
                     onPressed: () {
                       Navigator.push(
@@ -264,21 +314,13 @@ class CadastroCriancaPage extends StatelessWidget {
                     },
                   ),
 
-                  // Espaço inferior
                   const SizedBox(height: 100),
                 ],
               ),
             ),
           ),
-
-        
-        
-          
         ],
-
       ),
     );
   }
 }
-
-
