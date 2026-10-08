@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide FormField;
+import 'package:test_app/crianca/cadastro_rotina.dart';
 
 import '../contents/app_colors.dart';
 import '../contents/child_step_indicator.dart';
@@ -256,7 +257,13 @@ class _CadastroComportamentoPageState
 
               ContinueButton(
                 onPressed: () {
-                  // Etapa 5
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const CadastroRotinaPage(),
+                    ),
+                  );
                 },
               ),
 
