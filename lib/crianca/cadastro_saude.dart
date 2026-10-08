@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/crianca/cadastro_comportamental.dart';
 
 import '../contents/app_colors.dart';
 import '../contents/child_step_indicator.dart';
@@ -579,7 +580,13 @@ class _CadastroSaudePageState extends State<CadastroSaudePage> {
 
               ContinueButton(
                 onPressed: () {
-                  // Próxima etapa
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const CadastroComportamentoPage(),
+                        ),
+                      );
                 },
               ),
 
